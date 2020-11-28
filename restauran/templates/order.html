@@ -1,0 +1,25 @@
+{% extends "index.html" %}
+{% block content %}
+    <section class = "order-section">
+        <div class="main-order">
+            <h1>Order</h1>
+            <img src="{{ mstOrder.Images.url }}" alt="">
+            <h3 class="h3">{{ mstOrder.foodname}}</h3>
+            <h5>Total amount : {{ mstOrder.prize }}</h5>
+            <h5>Cash on delivery</h5>
+        </div>
+        <div class="details">
+                <input type="text" name="" id="" placeholder="Name">
+                <input type="text" name="" id="" placeholder="Phone No">
+                <input type="text" name="" id="" placeholder="Location">
+                <button class="btn" onclick="open_overlay1()">Confirm Order</button>
+        </div>
+    </section>
+    <div class="overlay" id="overlay-order" onclick="close_overlay1()">
+        <div class="formation-thank">
+            <p>Thank you</p>
+            <a href="{% url 'Home' %}">Home</a>
+            
+        </div>
+    </div>
+{% endblock content %}

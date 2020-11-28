@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script src="https://kit.fontawesome.com/2482476ed2.js" crossorigin="anonymous"></script>
+    <title>Fast Food</title>
+</head>
+<body>
+    <!--Header-->
+    <header>
+  
+        <nav>
+            <div class="logo">Fast Food</div>
+            <ul>
+                <li><a href="{% url 'Home' %}">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="{% url 'About' %}">About</a></li>
+                <li><a href="#" onclick="open_overlay()">Contact</a></li>
+                <li><a href="#" onclick="open_update_overlay()">Feedback</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block content %}
+    <div class="header">
+        <img src="https://images.pexels.com/photos/62097/pexels-photo-62097.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" alt="">
+    </div>
+
+    <!--Most Order section-->
+    <section class="most-order">
+        <h2>Most Order</h2>
+        <div class="all-package">
+            {% for item in items %}
+            <div class="package-of-food">
+
+                    <img src="{{ item.Images.url }}" alt="">
+                    <p>{{ item.foodname }}</p>
+                    <p>Rs. {{ item.prize }}</p>
+                    <a href="{% url 'order' item.id %}" class="button">Order</a>
+
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!--Feedback section-->
+    <section class="landing-feedback">
+        <h2>Feedback</h2>
+        <div class="all-feedback">
+            {% for feeds in feedback %}
+            <div class="person-feedback">
+                <div class="head">
+                    <img src="https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" alt="">
+                    <p class="feedname">{{ feeds.name }}</p>
+                </div>
+                <p class="feeding">"{{ feeds.feed }}"</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endblock content %}
+    <div class="overlay" id="overlay" onclick="close_overlay()">
+        <div class="formation">
+            <h3>CONTACT</h3>
+            <form action="/" method="POST" >
+                <input type="text" name="name" id="" placeholder="Name..">
+                <input type="email" name="mail" id="" placeholder="Email..">
+                <textarea name="content" placeholder="Message.." id="" cols="30" rows="10"></textarea>
+                <input type="submit" value="Send" onclick="close_overlay()">
+            </form>
+        </div>
+    </div>
+    <div class="overlay" id="overlay-feedback" onclick="close_update_overlay()">
+        <div class="formation">
+            <h3>FEEDBACK</h3>
+            <form action="/" method="POST" >{% csrf_token %}
+                <input type="text" name="name" id="" placeholder="Name..">
+                <input type="email" name="mail" id="" placeholder="Email..">
+                <textarea name="content" placeholder="Message.." id="" cols="30" rows="10"></textarea>
+                <input type="submit" value="Send" onclick="close_overlay()">
+            </form>
+        </div>
+    </div>
+
+    <!--Footer-->
+    <footer>
+            <i class="fas fa-map-marker-alt">  Address</i>
+            <br>
+            <i class="fas fa-envelope">  Email</i>
+            <br>
+            <i class="fas fa-phone-square-alt">  +91 8734545032</i>
+            <br>
+            <p>Term&condition</p>
+            <p>copy right &copy; 2020</p>
+    </footer>
+    <script src="{%static 'overlay.js' %}"></script>
+</body>
+</html>
